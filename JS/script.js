@@ -7,7 +7,7 @@ let input = document.getElementById("floatingInput")
 async function query() {
 	showLoader()
 	let result
-	try{
+	try {
 		const response = await fetch(
 			"https://api-inference.huggingface.co/models/Melonie/text_to_image_finetuned",
 			{
@@ -16,14 +16,14 @@ async function query() {
 				body: JSON.stringify({ inputs: input.value }),
 			}
 		);
-		 result = await response.blob();
+		result = await response.blob();
 	}
-	catch{
+	catch {
 		swal({
 			icon: "error",
 			title: "Oops...",
 			text: "Something went wrong!",
-		  });
+		});
 	}
 	hideLoader()
 	return result;
@@ -38,22 +38,20 @@ const handleSubmit = async () => {
 
 // ----------------------------- For Color Picker -----------------------------
 
-function handleColor(){
-	let color = document.getElementById("color")
+const handleBodyColor = () => {
 	let body = document.getElementById("body")
-	let BackColorValue = color.value
-	let colorValue = ""
-	console.log('BackColorValue', BackColorValue)
-	if(BackColorValue == "#000000"){
-		console.log('colorValue', colorValue)
-		colorValue = "#FFFFFF"
-	}
-	else{
-		colorValue = "#000000"
-	}
+	let bodyColor = document.getElementById("bodyColor")
+	let BackColorValue = bodyColor.value
 	body.style.backgroundColor = BackColorValue
+}
+
+const handleColor = () => {
+	let body = document.getElementById("body")
+	let color = document.getElementById("color")
+	let colorValue = color.value
 	body.style.color = colorValue
 }
+
 
 // ----------------------------- For Year -----------------------------
 
@@ -72,16 +70,16 @@ const showLoader = () => {
 const hideLoader = () => {
 	let loader = document.getElementById("loader")
 	loader.style.display = "none"
-	
+
 }
 
 // ----------------------------- For Remove image ----------------------------- 
 
 const handleRemove = () => {
-		swal({
+	swal({
 		icon: "error",
 		title: "Removed",
 		text: "You Deleted Generated Image",
-	  });
+	});
 	image.src = ""
 }
