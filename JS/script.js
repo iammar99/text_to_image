@@ -1,7 +1,8 @@
+// import { REACT_APP_HUGGINGFACE_API_KEY } from "../config"
 // ----------------------------- For Image Genrator -----------------------------
 
 let image = document.getElementById("image")
-let token = "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"
+let token = REACT_APP_HUGGINGFACE_API_KEY
 let input = document.getElementById("floatingInput")
 
 async function query() {
@@ -9,7 +10,7 @@ async function query() {
 	let result
 	try {
 		const response = await fetch(
-			"https://api-inference.huggingface.co/models/Melonie/text_to_image_finetuned",
+			"https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4",
 			{
 				headers: { Authorization: `Bearer ${token}` },
 				method: "POST",
@@ -30,9 +31,13 @@ async function query() {
 }
 
 const handleSubmit = async () => {
-	query().then((response) => {
+	query()
+	.then((response) => {
 		const objectURL = URL.createObjectURL(response)
 		image.src = objectURL
+	})
+	.catch((error)=>{
+		console.log(error)
 	})
 }
 
